@@ -1,0 +1,38 @@
+import remeras.*
+import sucursales.*
+import empresa.*
+
+describe "test del parcial" {
+
+	var paritas = new EmpresaDeRemeras()
+	var remera1 = new Remera_lisa(color = 'verde', talle = 42)
+	var remera2 = new Remera_Bordada(color = 'blanco', talle = 42)
+	var remera3 = new Remera_Sublimada(alto = 10, ancho = 15, color = 'blanco', talle = 43)
+	var disney = new Autor()
+	var pedido1 = new Pedido(cantRemeras = 5)
+	var avellaneda = new Sucursal()
+
+	test "costo de la remera lisa " {
+		assert.equals(110, remera1.costeRemeraCompleta())
+	}
+
+	test "coste remera bordada" {
+		remera2.agregarHiloColor('azul')
+		remera2.agregarHiloColor('verde')
+		remera2.agregarHiloColor('amarillo')
+		assert.equals(130, remera2.costeRemeraCompleta())
+	}
+
+	test "coste remera sublimada" {
+		remera3.tipoAutor(disney)
+		assert.equals(275, remera3.costeRemeraCompleta())
+	}
+
+	test "precioBase pedido remera" {
+		pedido1.tipoRemera(remera3)
+		remera3.tipoAutor(disney)
+		assert.equals(1375, pedido1.precioBase())
+	}
+
+}
+
